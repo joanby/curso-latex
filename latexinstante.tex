@@ -1,0 +1,422 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.35in,left=.5in,right=.5in,bottom=.35in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+\begin{center}
+     \Large{\textbf{Una guia rápida de \LaTeX}} \\
+\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{¿Qué es \LaTeX?}
+\LaTeX (que los anglosajones normalmente  pronuncian com ``LAY teck,'' a veces  ``LAH teck,'' pero nunca``LAY tex'') es un programa para componer textos matemáticos que es el estándard para  la mayoría de escritos profesionales. Está basado en el programa \TeX\ creado por  Donald Knuth de la Stanford University (la primera versión es de 1978). Leslie Lamport es el responsable de la creación del \LaTeX\, una versió més amigable del \TeX\
+
+\section{Mates vs. texto vs. funciones}
+En un texto matemático bien compuesto las variables aparecen en cursiva (e.g., $f(x)=x^{2}+2x-3$). Esta regla, como todas, tiene una excepción: las funciones predefinidas  (e.g., $\sin (x)$). Así, es importante tratar   \textbf{siempre} texto, variables y  funciones correctamente . Observad la diferencia entre $x$ y x, -1 y $-1$, y $sin(x)$ y $\sin(x)$.  
+
+Hay dos formas de presentar una expresión matemática--- \emph{en línea} o como una \emph{ecuación}.
+
+\subsection{Expresiones matemáticas en línea}
+Las expresiones en línea son las que aparecen en medio de una frase. Para crear una de estas expresiones, hay que poner la expresión matemática entre signos de dólar (\verb!$!).  Por ejemplo, si escribes  \verb!$90^{\circ}$ es lo mismo que $\frac{\pi}{2}$ radianes! obtienes: $90^{\circ}$ es lo mismo que $\frac{\pi}{2}$ radianes.
+
+\subsection{Ecuaciones}
+Las ecuaciones són expresiones matemáticas que ocupan una línea y estan centradas en la página.  Normalmente se utilizan para fórmulas importantes que merecen ser resaltadas o para expresiones matemáticas largas que no caben en una sola línea. Para obtener una de estas expresiones, hay que ponerla entre los símbolos \verb!$$! y \verb!$$!. Si escribes \verb!$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$! obtendrás $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.$$
+ 
+\subsection{Displaystyle} 
+Para obtener expresiones matemáticas en línea de tamaño grande hay que usar el comando \verb!\displaystyle!. No conviene usarlo a menudo. Si escribes \verb!Quiero esto $\displaystyle \sum_{n=1}^{\infty}! \verb!\frac{1}{n}$, y no esto otro $\sum_{n=1}^{\infty}! \verb!\frac{1}{n}$.! obtienes \\ Quiero esto $\displaystyle \sum_{n=1}^{\infty}\frac{1}{n}$, y no esto otro $\sum_{n=1}^{\infty}\frac{1}{n}.$
+
+
+\section{Imágenes}
+
+Podeis poner imágenes (pdf, png, jpg, or gif) en vuestros documentos. Tienen que estar en el mismo directorio que el fichero  .tex cuando compiles. Omite  \verb![width=.5cm]! si quieres la imagen a su tamaño real.
+
+\verb!\begin{figure}[ht]!\\
+\verb!\includegraphics[width=.5cm]{imagename.jpg}!\\
+\verb!\caption{El pie (opcional) iría aquí.}!\\
+\verb!\end{figure}!
+
+\subsection{Tipos de texto}
+
+El texto puede ir en \textit{cursiva} (\verb!\textit{cursiva}!), \textbf{negrita} (\verb!\textbf{negrita}!), o \underline{subrallado} (\verb!\underline{subrallado}!).
+
+Las expresiones matemáticas pueden tenir negritas, $\mathbf{R}$ (\verb!\mathbf{R}!), o blackboard bold, $\mathbb{R}$ (\verb!\mathbb{R}!). Esta última sirve para escribir el conjunto de los números reales ($\mathbb{R}$ o $\mathbf{R}$), enteros ($\mathbb{Z}$ o $\mathbf{Z}$), racionales ($\mathbb{Q}$ o $\mathbf{Q}$), y naturales ($\mathbb{N}$ o $\mathbf{N}$).
+
+Para poner un texto en una expresión matemática puedes usar \verb!\text!. \verb!(0,1]=\{x\in\mathbb{R}:x>0\text{ y }x\le 1\}! da $(0,1]=\{x\in\mathbb{R}:x>0\text{ y }x\le 1\}$. (Sin el comando \verb!\text! trata ``y'' como una variable: $(0,1]=\{x\in\mathbb{R}:x>0 y x\le 1\}$.)
+
+
+
+\section{Espacios y líneas nuevas}
+
+El \LaTeX\ ignora los espacios extra y las líneas nuevas. Por ejemplo, 
+
+\verb!Esta     frase      aparecerá!
+
+\verb!bien, después de       ser     compilada.!
+
+  Esta  frase      aparecerá
+bien, después de       ser     compilada.
+
+
+Entre dos párrafos hay que dejar una línea entera en blanco. Si quieres cambiar de línea sin crear un párrafo nuevo, escribe  \verb!\\! al final de la línea.
+
+\verb!Esto!
+
+\verb!se compila!
+
+~
+
+\verb!como\\!
+
+\verb!esto.!
+
+Esto
+se compila 
+
+como\\
+esto.
+
+Usa  \verb!\noindent! para evitar el sangrado en un párrafo nuevo.
+
+\section{Comentarios}
+
+Usa \verb!%! para crear un comentario. Cualquier cosa en la  línea después del  \verb!%! será ignorado \verb!$f(x)=\sin(x)$ %esta es la función seno!, da $f(x)=\sin(x)$%esta és la funció seno.
+
+\section{Delimitadores}
+
+\begin{tabular}{lll}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+paréntesis &\verb!(x)! & (x)\\
+corchetes &\verb![x]! & [x]\\
+llaves & \verb!\{x\}! & \{x\}\\
+\end{tabular}
+
+Para que los delimitadores abarquen el contenido, se pueden usar con \verb!\right! y \verb!\left!. Per ejemplo, \verb!\left\{\sin\left(\frac{1}{n}\right)\right\}_{n}^! \verb!{\infty}! da\\ $\displaystyle \left\{\sin\left(\frac{1}{n}\right)\right\}_{n}^{\infty}$.
+
+Les llaves son carácteres no imprimibles que se utilizan para delimitar texto que tiene más de un carácter. Observa las diferencias entre las cuatro expresiones \verb!x^2!, \verb!x^{2}!, \verb!x^2t!, \verb!x^{2t}! una vez compiladas: $x^2$, $x^{2}$, $x^2t$, $x^{2t}$.
+
+
+\section{Listas}
+
+Puedes hacer listas numeradas y no numeradas:
+
+\begin{tabular}{lll}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+lista no numerada&
+\begin{tabular}{l}
+\verb!\begin{itemize}!\\
+\verb!  \item!\\
+\verb!  Cosa 1!\\
+\verb!  \item!\\
+\verb!  Cosa 2!\\
+\verb!\end{itemize}!
+\end{tabular}&
+\begin{tabular}{l}
+$\bullet$ Cosa 1\\
+$\bullet$ Cosa 2
+\end{tabular}\\
+~\\
+lista numerada&
+\begin{tabular}{l}
+\verb!\begin{enumerate}!\\
+\verb!  \item!\\
+\verb!  Cosa 1!\\
+\verb!  \item!\\
+\verb!  Cosa 2!\\
+\verb!\end{enumerate}!
+\end{tabular}&
+\begin{tabular}{l}
+1.~Cosa 1\\
+2.~Cosa 2
+\end{tabular}
+\end{tabular}
+
+
+\section{Símbolos (en modo) \emph{matemàtico} }
+
+\subsection{Los básicos}
+\begin{tabular}{lll}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+suma & \verb!+! & $+$\\
+resta & \verb!-! & $-$\\
+más/menos & \verb!\pm! & $\pm$\\
+multiplicación (cruz) & \verb!\times! & $\times$\\
+multiplicación (punto) & \verb!\cdot! & $\cdot$\\
+símbol de división& \verb!\div! & $\div$\\
+barra de división & \verb!/! & $/$\\
+suma cercada & \verb!\oplus! & $\oplus$\\
+producte cercado & \verb!\otimes! & $\otimes$\\
+igual & \verb!=! & $=$\\
+no igual & \verb!\ne! & $\ne$\\
+menor que & \verb!<! & $<$\\
+mayor que & \verb!>! & $>$\\
+menor o igual que & \verb!\le! & $\le$\\
+mayor o igual que & \verb!\ge! & $\ge$\\
+aproximadamente igual a  & \verb!\approx! & $\approx$\\
+infinito & \verb!\infty! & $\infty$\\
+puntos & \verb!1,2,3,\ldots! & $1,2,3,\ldots$\\
+puntos & \verb!1+2+3+\cdots! & $1+2+3+\cdots$\\
+fracción & \verb!\frac{a}{b}! & $\frac{a}{b}$\\
+raíz cuadrada & \verb!\sqrt{x}! & $\sqrt{x}$\\
+raíiz enésima & \verb!\sqrt[n]{x}! & $\sqrt[n]{x}$\\
+superíndice & \verb!a^b! & $a^{b}$\\
+subíndice & \verb!a_b! & $a_{b}$\\
+valor absoluto & \verb!|x|! & $|x|$\\
+logaritmo natural  & \verb!\ln(x)! & $\ln(x)$\\
+logaritmos & \verb!\log_{a}b! & $\log_{a}b$\\
+función exponencial & \verb!e^x=\exp(x)! & $e^{x}=\exp(x)$\\
+grado & \verb!\deg(f)! & $\deg(f)$\\
+\end{tabular}
+\newpage
+
+
+\subsection{Funciones}
+\begin{tabular}{lll}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+flecha & \verb!\to! & $\to$\\
+composición & \verb!\circ! & $\circ$\\
+función def.& \verb!|x|=! & \multirow{5}{*}{$\displaystyle |x|=\begin{cases}x&x\ge 0\\-x&x<0\end{cases}$}\\
+a trozos &\verb!\begin{cases}!&\\ 
+&\verb!x & x\ge 0\\!&\\ 
+&\verb!-x & x<0!&\\ 
+&\verb!\end{cases}!&
+\end{tabular}
+
+\subsection{Letras hebreas y griegas}
+\begin{tabular}{llll}
+\emph{comando} & \emph{resultado}&\emph{comando} & \emph{resultado}\\
+\verb!\alpha! & $\alpha$&\verb!\tau! & $\tau$\\
+\verb!\beta! & $\beta$&\verb!\theta! & $\theta$\\
+\verb!\chi! & $\chi$&\verb!\upsilon! & $\upsilon$\\
+\verb!\delta! & $\delta$&\verb!\xi! & $\xi$\\
+\verb!\epsilon! & $\epsilon$&\verb!\zeta! & $\zeta$\\
+\verb!\varepsilon! & $\varepsilon$&\verb!\Delta! & $\Delta$\\
+\verb!\eta! & $\eta$&\verb!\Gamma! & $\Gamma$\\
+\verb!\gamma! & $\gamma$&\verb!\Lambda! & $\Lambda$\\
+\verb!\iota! & $\iota$&\verb!\Omega! & $\Omega$\\
+\verb!\kappa! & $\kappa$&\verb!\Phi! & $\Phi$\\
+\verb!\lambda! & $\lambda$&\verb!\Pi! & $\Pi$\\
+\verb!\mu! & $\mu$&\verb!\Psi! & $\Psi$\\
+\verb!\nu! & $\nu$&\verb!\Sigma! & $\Sigma$\\
+\verb!\omega! & $\omega$&\verb!\Theta! & $\Theta$\\
+\verb!\phi! & $\phi$&\verb!\Upsilon! & $\Upsilon$\\
+\verb!\varphi! & $\varphi$&\verb!\Xi! & $\Xi$\\
+\verb!\pi! & $\pi$&\verb!\aleph! & $\aleph$\\
+\verb!\psi! & $\psi$&\verb!\beth! & $\beth$\\
+\verb!\rho! & $\rho$&\verb!\daleth! & $\daleth$\\
+\verb!\sigma! & $\sigma$&\verb!\gimel! & $\gimel$
+\end{tabular}
+
+
+\subsection{Conjuntos}
+
+\begin{tabular}{llc}
+\emph{descripcion} & \emph{comando} & \emph{resultado}\\
+llaves & \verb!\{1,2,3\}! & $\{1,2,3\}$\\
+pertenece a & \verb!\in! & $\in$\\
+no pertenece  & \verb!\not\in! & $\not\in$\\
+subconjunto  & \verb!\subset! & $\subset$\\
+subconjunto   & \verb!\subseteq! & $\subseteq$\\
+no contenido  & \verb!\not\subset! & $\not\subset$\\
+contiene  & \verb!\supset! & $\supset$\\
+contiene  & \verb!\supseteq! & $\supseteq$\\
+unión & \verb!\cup! & $\cup$\\
+intersección & \verb!\cap! & $\cap$\\
+unión grande & 
+\verb!\bigcup_{n=1}^{10}A_n! &
+$\displaystyle \bigcup_{n=1}^{10}A_{n}$\\
+inter. grande & \verb!\bigcap_{n=1}^{10}A_n! &$\displaystyle \bigcap_{n=1}^{10}A_{n}$\\
+cjto vacío & \verb!\emptyset! & $\emptyset$\\
+cjto de subcjtos & \verb!\mathcal{P}! & $\mathcal{P}$\\
+mínimo & \verb!\min! & $\min$\\
+máximo & \verb!\max! & $\max$\\
+supremo & \verb!\sup! & $\sup$\\
+ínfimo & \verb!\inf! & $\inf$\\
+limite superior & \verb!\limsup! & $\limsup$\\
+limite inferior & \verb!\liminf! & $\liminf$\\
+adherencia & \verb!\overline{A}! & $\overline{A}$
+\end{tabular}
+
+\subsection{Cálculo}
+\begin{tabular}{llc}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+derivada & \verb!\frac{df}{dx}! & $\displaystyle \frac{df}{dx}$\\
+derivada & \verb!\f'! & $f'$\\
+derivada parcial & 
+\begin{tabular}{l}
+\verb!\frac{\partial f}!\\ \verb!{\partial x}! 
+\end{tabular}& $\displaystyle \frac{\partial f}{\partial x}$\\
+integral & \verb!\int! & $\displaystyle\int$\\
+integral doble & \verb!\iint! & $\displaystyle\iint$\\
+integral triple  & \verb!\iiint! & $\displaystyle\iiint$\\
+límite & \verb!\lim_{x\to \infty}! & $\displaystyle \lim_{x\to \infty}$\\
+sumatorio  & 
+\verb!\sum_{n=1}^{\infty}a_n! &
+$\displaystyle \sum_{n=1}^{\infty}a_n$\\
+producto  & 
+\verb!\prod_{n=1}^{\infty}a_n! &
+$\displaystyle \prod_{n=1}^{\infty}a_n$
+\end{tabular}
+
+
+
+
+\subsection{Lógica}
+\begin{tabular}{llc}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+no & \verb!\sim! & $\sim$\\
+y & \verb!\land! & $\land$\\
+o & \verb!\lor! & $\lor$\\
+si...entonces & \verb!\to! & $\to$\\
+si, y sólo sí & \verb!\leftrightarrow! & $\leftrightarrow$\\
+equivalencia lógica  & \verb!\equiv! & $\equiv$\\
+entonces & \verb!\therefore! & $\therefore$\\
+existei  & \verb!\exists! & $\exists$\\
+para todo & \verb!\forall! & $\forall$\\
+implica & \verb!\Rightarrow! & $\Rightarrow$\\
+equivalencia & \verb!\Leftrightarrow! & $\Leftrightarrow$
+\end{tabular}
+
+\subsection{Àlgebra lineal}
+\begin{tabular}{llc}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+vector & \verb!\vec{v}! & $\vec{v}$\\
+vector & \verb!\mathbf{v}! & $\mathbf{v}$\\
+norma & \verb!||\vec{v}||! & $||\vec{v}||$\\
+matriz&
+\begin{tabular}{l}
+
+\verb!\begin{pmatrix}!\\
+\verb!1 & 2 & 3 \\!\\
+\verb!4 & 5 & 6\\!\\
+\verb!7 & 8 & 0!\\
+\verb!\end{pmatrix}!\\
+\end{tabular}&
+$\displaystyle \begin{pmatrix}1 & 2 & 3 \\4 & 5 & 6 \\7 & 8 & 0 \end{pmatrix}$\\
+\\determinante&
+\begin{tabular}{l}
+\verb!\left|!\\
+\verb!\begin{array}{ccc}!\\
+\verb!1 & 2 & 3 \\!\\
+\verb!4 & 5 & 6 \\!\\
+\verb!7 & 8 & 0!\\
+\verb!\end{array}!\\
+\verb!\right|!
+\end{tabular}&
+$\displaystyle \left|\begin{array}{ccc}1 & 2 & 3 \\4 & 5 & 6 \\7 & 8 & 0\end{array}\right|$\\
+determinante & \verb!\det(A)! & $ \det(A)$\\
+traza & \verb!\operatorname{tr}(A)! & $\operatorname{tr}(A)$\\
+dimensión & \verb!\dim(V)! & $\dim(V)$\\
+\end{tabular}
+
+\subsection{Teoria de números}
+\begin{tabular}{llc}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+divide a & \verb!|! & $|$\\
+no divide a & \verb!\not |! & $\not |$\\
+div & \verb!\operatorname{div}! & $\operatorname{div}$\\
+mod & \verb!\mod! & $\operatorname{mod}$\\
+máxim común divisor & \verb!\gcd! & $\gcd$\\
+ceiling & \verb!\lceil x \rceil! & $\lceil x\rceil$\\
+floor & \verb!\lfloor x \rfloor! & $\lfloor x \rfloor$\\
+\end{tabular}
+
+
+
+
+\subsection{Geometría y trigonometría}
+\begin{tabular}{lll}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+ángulo & \verb!\angle ABC! & $\angle ABC$\\
+grado & \verb!90^{\circ}! & $90^{\circ}$\\
+triángulo& \verb!\triangle ABC! & $\triangle ABC$\\
+segmento& \verb!\overline{AB}! & $\overline{AB}$\\
+seno& \verb!\sin! & $\sin$\\
+coseno& \verb!\cos! & $\cos$\\
+tangente& \verb!\tan! & $\tan$\\
+cotangente& \verb!\cot! & $\cot$\\
+secante& \verb!\sec! & $\sec$\\
+cosecante& \verb!\csc! & $\csc$\\
+arc seno& \verb!\arcsin! & $\arcsin$\\
+arc coseno & \verb!\arccos! & $\arccos$\\
+arc tangente & \verb!\arctan! & $\arctan$\\
+\end{tabular}
+
+\section{Símbolos (en modo) \emph{texto} }
+
+Los símbols seguientes \textbf{no} poden ir entre signos de dólar:
+
+\begin{tabular}{llc}
+\emph{descripción} & \emph{comando} & \emph{resultado}\\
+signo de dólar  & \verb!\$! & \$ \\
+porcentaje & \verb!\%! & \% \\
+ampersand & \verb!\&! & \& \\
+tablillas & \verb!\#! & \# \\
+barra invertida & \verb!\textbackslash! & \textbackslash \\
+comillas izquierda  & \verb!``! & `` \\
+comillas derecha & \verb!''! & '' \\
+comilla simple izquierda  & \verb!`! & ` \\
+comilla simple derecha & \verb!'! & ' \\
+guión & \verb!X-ray! & X-ray\\
+en-dash & \verb!pp. 5--15! & pp. 5--15 \\
+em-dash & \verb!Sí---o no?! & Sí---o no? 
+\end{tabular}
+
+\section{Fuentes}
+\href{http://www.tug.org/}{TUG: The \TeX\ Users Group}\\
+\href{http://www.ctan.org/}{CTAN: The Comprehensive \TeX\ Archive Network}\\
+Handwriting-to-\LaTeX\ webs: \href{http://detexify.kirelabs.org/}{Detexify}.
+\href{ftp://tug.ctan.org/pub/tex-archive/info/symbols/comprehensive/symbols-letter.pdf}{The Comprehensive \LaTeX\ Symbol List}\\ 
+Software que genera código \LaTeX\: Mathematica, Maple, Maxima, GeoGebra\\ %\href{https://prep11geogebra.pbworks.com/w/page/38586775/LaTex%20with%20GeoGebra}{Geogebra to \LaTeX\ }\\
+\LaTeX\ para el Mac: \href{http://www.tug.org/mactex/}{Mac\TeX}\\
+\LaTeX\ para el PC: \href{http://www.texniccenter.org/}{{\TeX}nicCenter} and \href{http://miktex.org/}{MiK\TeX}\\
+\LaTeX\ online: \href{http://es.overleaf.com}{Overleaf}, \href{http://www.sharelatex.com/}{ShareLaTeX}, \href{http://www.writelatex.com/}{WriteLaTeX}\\
+\LaTeX\ integration with Microsoft Office, Apple iWork, etc: \href{http://www.dessci.com/en/products/mathtype/}{MathType}, \href{http://www.chachatelier.fr/latexit/}{{\LaTeX}{iT}}
+\vfill
+\hrule
+~\\
+Dave Richeson, Dickinson College, \href{http://divisbyzero.com/}{http://divisbyzero.com/}
+Traducción: Llorenç Valverde. 
+\end{multicols}
+
+\end{document}
