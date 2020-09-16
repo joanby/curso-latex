@@ -1,0 +1,901 @@
+\documentclass{beamer}
+
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{color}
+%\usepackage{minted}
+\usepackage{cprotect}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+% only inline todonotes work
+\usepackage{xkeyval}
+\usepackage[textsize=small]{todonotes}
+\presetkeys{todonotes}{inline}{}
+
+\usetikzlibrary{shapes,arrows,positioning,shadows}
+
+% no nav buttons
+\usenavigationsymbolstemplate{}
+
+\newcommand{\bftt}[1]{\textbf{\texttt{#1}}}
+\newcommand{\comment}[1]{{\color[HTML]{008080}\textit{\textbf{\texttt{#1}}}}}
+\newcommand{\cmd}[1]{{\color[HTML]{008000}\bftt{#1}}}
+\newcommand{\bs}{\char`\\}
+\newcommand{\cmdbs}[1]{\cmd{\bs#1}}
+\newcommand{\lcb}{\char '173}
+\newcommand{\rcb}{\char '175}
+\newcommand{\cmdbegin}[1]{\cmdbs{begin\lcb}\bftt{#1}\cmd{\rcb}}
+\newcommand{\cmdend}[1]{\cmdbs{end\lcb}\bftt{#1}\cmd{\rcb}}
+
+
+% this is where the example source files are loaded from
+% do not include a trailing slash
+\newcommand{\fileuri}{https://raw.githubusercontent.com/joanby/curso-latex/master}
+
+\newcommand{\wlserver}{https://es.overleaf.com}
+\newcommand{\wlnewdoc}[1]{\wlserver/docs?snip\_uri=\fileuri/#1\&splash=none}
+
+\def\tikzname{Ti\emph{k}Z}
+
+% from http://tex.stackexchange.com/questions/5226/keyboard-font-for-latex
+\newcommand*\keystroke[1]{%
+  \tikz[baseline=(key.base)]
+    \node[%
+      draw,
+      fill=white,
+      drop shadow={shadow xshift=0.25ex,shadow yshift=-0.25ex,fill=black,opacity=0.75},
+      rectangle,
+      rounded corners=2pt,
+      inner sep=1pt,
+      line width=0.5pt,
+      font=\scriptsize\sffamily
+    ](key) {#1\strut}
+  ;
+}
+\newcommand{\keystrokebftt}[1]{\keystroke{\bftt{#1}}}
+
+\title{Introducción a \LaTeX{} con Overleaf(*)} 
+\author{J.G Gomila y L. Valverde}
+%\titlegraphic{%
+%\includegraphics[height=36pt]{overleaf}\\[1em]
+%%\includegraphics[height=24pt]{UoB-logo}
+%}
+
+\subtitle{Primera parte: Fundamentos}
+\date{}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\titlepage
+
+{\scriptsize{(*) Basado en ``An interactive introduction to \LaTeX'' de J.D. Lees -Miller}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\LaTeX{}, ¿por qué?}
+\begin{itemize}
+\item Permite crear  documentos magníficos.
+\begin{itemize}
+\item Especialmente matemáticos
+\end{itemize}
+%
+\item Fué creado por matemáticos, para matemáticos
+\begin{itemize}
+\item Una comunidad grande y activa
+\end{itemize}
+%
+\item Es muy potente --- lo puedes extender
+\begin{itemize}
+\item Paquetes para artículos, presentaciones, hojas de cálculo, \ldots
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{¿Cómo funciona?}
+\begin{itemize}
+\item Escribes tu documento en \texttt{texto simple} con \cmd{comandos} que describen su estructura y significado.
+\item El programa \texttt{latex} procesa el texto y los comandos para conseguir un documento magníficamente formatado.
+
+\end{itemize}
+\vskip 2ex
+\begin{center}
+
+\begin{verbatim}
+ Si te dan un papel pautado {\em escribe detrás}.
+\end{verbatim}
+
+\vskip 2ex
+\tikz\node[single arrow,fill=gray,font=\ttfamily\bfseries,%
+  rotate=270,xshift=-1em]{latex};
+\vskip 2ex
+\fbox{Si te dan un papel pautado {\em escribe detrás}.}
+
+
+\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Más ejemplos de comandos y su resultado \ldots}
+
+
+\begin{columns}
+\begin{column}{4cm}
+{\scriptsize
+\begin{verbatim}
+\begin{itemize}
+\item Picos
+\item Palas
+\item Azadones
+\end{itemize} 
+\end{verbatim} 
+}
+\end{column}
+\begin{column}{1cm}
+$\implies$
+\end{column}
+\begin{column}{4cm}
+\begin{itemize}
+\item Picos
+\item Palas
+\item Azadones
+\end{itemize} 
+\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{4cm}
+{\scriptsize
+\begin{verbatim}
+\begin{figure}
+\includegraphics{siurellb}
+\end{figure}  
+\end{verbatim}}
+\end{column}
+\begin{column}{1cm}
+$\implies$
+\end{column}
+\begin{column}{4cm}
+\begin{figure}
+\includegraphics{siurellb}
+\end{figure}
+\end{column}
+\end{columns}
+
+
+\begin{columns}
+\begin{column}{4cm}
+{\scriptsize
+\begin{verbatim}
+\begin{equation}
+\alpha - \beta = 3
+\end{equation}
+\end{verbatim}}
+\end{column}
+\begin{column}{1cm}
+$\implies$
+\end{column}
+\begin{column}{4cm}
+\begin{equation}
+\alpha - \beta =3
+\end{equation}
+\end{column}
+\end{columns}
+
+\vspace{.5cm}
+\hfill \tiny{La imagen es de  \url{http://siurellscanbernadinou.com/ca/464-2/}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Cambios en el concepto de redacción}
+
+\begin{itemize}
+\item Usa los comandos para describir `lo que es' y no `que aspecto tiene'.
+\item Concentrate en el contenido..
+\item Deja el resto al \LaTeX{}.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fundamentos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Para empezar}
+\begin{frame}[fragile]{\insertsubsection}
+\begin{itemize}
+\item Un documento mínimo de \LaTeX{}:
+\cprotect\fbox{
+\begin{minipage}[c]{8cm}
+{\scriptsize
+\begin{verbatim}
+\documentclass{article}
+\begin{document}
+Decíamos ayer ...  % Tu contenido va aquí ...
+\end{document}
+\end{verbatim}}
+\end{minipage}}
+\item Los comandos empiezan  con una \emph{barra invertida} \keystrokebftt{\bs}.
+\item Cada documento empieza con el comando \cmdbs{documentclass}.
+\item El \emph{argumento} entre llaves \keystrokebftt{\{} \keystrokebftt{\}} le dice a \LaTeX{} que tipo de documento estamos creando: un \bftt{artículo}.
+\item El signo \keystrokebftt{\%} empieza un \emph{comentario} --- \LaTeX{}
+ignorará el resto de la línea.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Para empezar con Overleaf}
+\begin{itemize}
+\item Overleaf es un sitio web para escribir documentos en \LaTeX.
+\item `Compila' tu documento \LaTeX{} automáticamente y te enseña el resultado.
+\vskip 2em
+\begin{center}
+\fbox{\href{\wlnewdoc{basics.tex}}{%
+Clica aquí para abrir el document de ejemplo en Overleaf}}
+\\[1ex]\scriptsize{}
+Obtendrás  resultados mejores si usas \href{http://www.google.com/chrome}{Google Chrome} o un \href{http://www.mozilla.org/en-US/firefox/new/}{FireFox} reciente.
+\end{center}
+\vskip 2ex
+\item A medida que vayamos avanzando, deberías ir probando los ejemplos que vayan saliendo.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\subsection{Escribir texto}
+\begin{frame}[fragile]{\insertsubsection{}}
+\small
+\begin{itemize}
+\item Escribe el texto entre \cmdbegin{document} y \cmdend{document}.
+\item Para la mayor parte del documento, será sufieciente escribir el texto normalmente.
+\vspace{.5cm}
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+\begin{verbatim}
+Las palabras van  separadas 
+    por un espacio o más.
+
+Los párrafos van separados 
+por una o más líneas 
+en blanco.
+
+\end{verbatim}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{4cm}
+Las palabras van     separadas 
+por un espacio o más.
+
+\vspace{.4cm}
+Los párrafos van separados 
+por una o más líneas 
+en blanco.
+ \vspace{.5cm}
+\end{minipage}}
+\end{center}
+
+\item Los espacios del archivo fuente se compactan en el archivo de salida: 
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+\begin{verbatim}
+Si te dan   un papel
+pautado,       escribe 
+detrás.
+\end{verbatim}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{4cm}
+Si te dan   un papel
+pautado,       escribe 
+detrás.
+\vspace{.35cm}
+\end{minipage}}
+\end{center}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\insertsubsection{}: aclaraciones}
+\small
+\begin{itemize}
+\item Las comillas tienen su truco: Teneis que usar un acento grave \keystroke{\`{}} a la izquierda y un apóstrofe \keystroke{\'{}} a la derecha.
+
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+\includegraphics[scale=0.5]{cometes}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{4cm}
+Comillas simples: `texto'.
+
+\vspace{.4cm}
+Comillas dobles: ``texto''.
+\end{minipage}}
+\end{center}
+
+\item Algunos carácteres tienen un significado especial en \LaTeX:\\[1ex]
+\begin{tabular}{cl}
+\keystrokebftt{\%} & tanto por ciento              \\
+\keystrokebftt{\#} & tablillas \\
+\keystrokebftt{\&} & signo and                \\
+\keystrokebftt{\$} & dólar               \\
+\end{tabular}
+\item Si escribes uno, obtendrás un error. Si lo necesitas, tienes que escribirlo precedido de  barra invertida:
+\begin{center}
+
+\begin{tabular}{|c|c|}
+\hline
+\verb+\$ \% \& \# !+ &\$ \% \&  \# ! \\
+\hline
+\end{tabular}
+\end{center}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Gestión de los errores}
+\begin{itemize}
+\item \LaTeX{} puede tener problemas cuando intente compilar un documento. Si esto pasa, se para y da un mensaje de error, que has de intentar corregir antes de seguir, ya que no dará resultado alguno.
+
+\item Por ejemple, si escribes \cmdbs{meph} en lugar de \cmdbs{emph}, el \LaTeX{} se parará con un mensaje
+de error ``undefined control sequence'', dado que ``meph''  no es uno de los comandos que conoce.
+
+\end{itemize}
+\begin{block}{Consejos sobre los errores}
+\begin{enumerate}
+\item ¡No te asustes! Los errores ocurren.
+\item Corrígelos tan tan pronto como aparezcan --- si lo que acabas de escribir es la causa del error, ya sabes por donde puedes empezar a depurar. 
+\item Si hay más de un error, empieza por el primero --- la causa puede estar incluso antes que este. 
+\end{enumerate}
+\end{block}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejercicio 1 de escritura}
+
+\begin{block}{Escribe esto en \LaTeX:
+\footnote{\url{http://en.wikipedia.org/wiki/Economy_of_the_United_States}}}
+In March 2006, Congress raised that ceiling an additional \$0.79 trillion to
+\$8.97 trillion, which is approximately 68\% of GDP. As of October 4, 2008, the
+``Emergency Economic Stabilization Act of 2008'' raised the current debt ceiling
+to \$11.3 trillion.
+\end{block}
+\vskip 2ex
+\begin{center}
+\fbox{\href{\wlnewdoc{basics-exercise-1.tex}}{%
+Clica para abrir este ejercicio en Overleaf}}
+\end{center}
+
+\begin{itemize}
+\item Indicación: ¡vigila los carácteres con significados especiales! 
+\item Una vez que lo hayas probado
+\fbox{\href{\wlnewdoc{basics-exercise-1-solution.tex}}{%
+clica aquí para ver una solución.}}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Expresiones matemáticas}
+\begin{frame}[fragile]{\insertsubsection{}: Los signos de dólar}
+\begin{itemize}
+\item ¿Qué tienen de especial los signos de dólar?  \keystrokebftt{\$}?  Los usamos para marcar las fórmulas matemáticas en el texto: %\\[1ex]
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+\begin{verbatim}
+% no muy bien:
+Sean a y b enteros 
+positivos distintos, 
+y sea c = a - b + 1.
+
+% mucho mejor:
+Sean $a$ y $b$ enteros 
+positivos distintos, 
+y sea  $c = a - b + 1$.
+\end{verbatim}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{4cm}
+
+\vspace{.25cm}
+Sean a y b enteros 
+positivos distintos, 
+y sea c = a - b + 1.
+
+\vspace{1.3cm}
+Sean $a$ y $b$ enteros 
+positivos distintos, 
+y sea  $c = a - b + 1$.
+\end{minipage}}
+\end{center}
+
+\vspace{.5cm}
+\item Los signos de dólar van siempre por parejas --- uno para abrir la expresión matemática y el otro para cerrarla..
+
+\item \LaTeX{} gestiona los espacios automáticamente:  ignora los tuyos.
+% \begin{minipage}[l]{5cm}
+% \begin{verbatim}
+%Sigui $y=mx+b$ \ldots
+% \end{verbatim}
+% \end{minipage}
+%\begin{minipage}[r]{3cm}
+%Sigui $y = m x + b$ \ldots
+%\end{minipage}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\insertsubsection{}: Notación}
+\begin{itemize}
+\item Usa el acento circumflejo \keystrokebftt{\^} para los superíndices y el guión bajo para los subíndices.
+
+\cprotect\fbox{
+\begin{minipage}[l]{6cm}
+\begin{verbatim}
+$y = c_2 x^2 + c_1 x + c_0$ 
+\end{verbatim}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3cm}
+  $y = c_2 x^2 + c_1 x + c_0$
+ \end{minipage}}
+ 
+ \vskip 2ex
+
+\item Usa las llaves \keystrokebftt{\{} \keystrokebftt{\}} para agrupar subíndices y superíndices.
+
+\cprotect\fbox{
+\begin{minipage}[l]{6cm}
+\begin{verbatim}
+$F_n = F_n-1 + F_n-2$  %epa!
+
+$F_n = F_{n-1} + F_{n-2}$ %ok!
+\end{verbatim}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3cm}
+$F_n = F_n-1 + F_n-2$
+
+\vspace{.5cm}
+$F_n = F_{n-1} + F_{n-2}$ 
+\end{minipage}}
+
+
+
+\vskip 2ex
+
+\item Hay comandos para las letras griegas y las notaciones habituales.
+
+ \vspace{.5cm}
+\cprotect\fbox{\begin{minipage}[l]{6cm}
+\small
+\begin{verbatim}
+$\mu = A e^{Q/RT}$
+
+$\Omega=\sum_{k=1}^{n}\omega_k$
+\end{verbatim}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3cm}
+$\mu = A e^{Q/RT}$
+
+\vspace{.25cm}
+$\Omega = \sum_{k=1}^{n} \omega_k$
+\end{minipage}}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\insertsubsection{}: ecuaciones.}
+\begin{itemize}
+\item Si la fórmula es larga y asusta,  \emph{muestrala} sola en una línea, usando
+\cmdbegin{equation} y \cmdend{equation}.\\[2ex]
+\begin{center}
+\cprotect\fbox{\begin{minipage}[l]{5cm}
+{\scriptsize
+\begin{verbatim}
+Las raices de una ecuación 
+de segundo grado vienen 
+dadas por 
+
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}
+         {2a}
+\end{equation}
+donde $a$, $b$y $c$ son \ldots
+\end{verbatim}}
+\vspace{.4cm}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{4cm}
+Las raices de una ecuación 
+de segundo grado vienen 
+dadas por
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}
+         {2a}
+\end{equation}
+donde $a$, $b$ y $c$ son \ldots
+\end{minipage}}
+\end{center}
+\vskip 1em
+{\scriptsize Precaución: \LaTeX{} ignora los espacios en modo matemático, pero no puede  gestionar líneas en blanco en las ecuaciones --- no dejes líneas en blanco en ellas}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Interludio: Entornos}
+\begin{itemize}
+\item \bftt{equation} es un \emph{entorno} --- un contexto.
+\item Un comando puede producir resultados diferentes en contextos diferentes.
+\begin{center}
+\cprotect\fbox{\begin{minipage}[l]{5.5cm}
+{\scriptsize
+\vspace{.3cm}
+\begin{verbatim}
+Podemos escribir
+$ \Omega = \sum_{k=1}^{n} \omega_k $
+en el texto, o podemos escribir
+\begin{equation}
+  \Omega = \sum_{k=1}^{n} \omega_k
+\end{equation}
+para resaltarla.
+\end{verbatim}}
+\vspace{.5cm}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3.5cm}
+{\small
+Podemos escribir
+$ \Omega = \sum_{k=1}^{n} \omega_k $
+en el texto, o podemos escribir
+\begin{equation}
+  \Omega = \sum_{k=1}^{n} \omega_k
+\end{equation}
+para resaltarla.}
+\end{minipage}}
+\end{center}
+%\end{exampletwouptiny}
+\vskip 2ex
+\item Observa que el $\Sigma$ és mayor en el entorno \bftt{equation}, y como los superíndices y subíndices
+cambian las posiciones, aunque hemos usado los mismos comandos.
+\vskip 1em
+{\scriptsize De hecho, habríamos podido escribir \bftt{\$...\$} como
+\cmdbegin{math}\bftt{...}\cmdend{math}.}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Interludio: Entornos}
+\begin{itemize}
+\item Los comandos \cmdbs{begin} y \cmdbs{end} se usan para crear diferentes entornos. 
+\vskip 2ex
+
+\item Los entornos \bftt{itemize} y \bftt{enumerate}  generan listas.
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+{\scriptsize
+\begin{verbatim}
+\begin{itemize} % no numerada 
+\item Picos
+\item Palas
+\item Azadones
+\end{itemize}
+
+\begin{enumerate} % numerada
+\item Picos
+\item Palas
+\item Azadones
+\end{enumerate}
+\end{verbatim}}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3cm}
+\begin{itemize}
+\item Picos
+\item Palas
+\item Azadones
+\end{itemize}
+
+\begin{enumerate} 
+\item Picos
+\item Palas
+\item Azadones
+\end{enumerate}
+\end{minipage}}
+\end{center}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Interludio: Paquetes}
+
+\begin{itemize}
+\item Todos los comandos y entornos que he usado hasta aquí vienen incluidos con el \LaTeX.
+
+\item Los \emph{Paquetes} son librerías extra de comandos y entornos. Los hay a miles disponibles libremente.
+
+
+\item Cada paquete que queramos usar se ha de cargar con el comando  \cmdbs{usepackage}  en el \emph{preámbulo}.
+
+\item Ejemplo: \bftt{amsmath} de la American Mathematical Society.
+\cprotect\fbox{\begin{minipage}[c]{9.5cm}
+\begin{verbatim}
+\documentclass{article}
+\usepackage{amsmath} % preámbulo
+\begin{document}
+% ya puedes usar comandos amsmath aquí ...
+\end{document}
+\end{verbatim}
+\end{minipage}}
+
+
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\insertsubsection{}: Ejemplos con \bftt{amsmath}}
+\begin{itemize}
+{\small
+\item Usa \bftt{equation*} para ecuaciones sin numerar.}
+
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+{\scriptsize
+\begin{verbatim}
+\begin{equation*}
+  \Omega = \sum_{k=1}^{n} \omega_k
+\end{equation*}
+\end{verbatim}}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3cm}
+{\scriptsize
+\begin{equation*}
+  \Omega = \sum_{k=1}^{n} \omega_k
+\end{equation*}}
+\end{minipage}}
+\end{center}
+
+{\small
+\item El \LaTeX{} trata las letras adyacentes como variables multiplicadas entre si, que no será siempre lo que queramos.  \bftt{amsmath} define comandos para muchos operadores matemátics habituales.}
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5cm}
+{\scriptsize
+\begin{verbatim}
+\begin{equation*} % ¡mal!
+ min_{x,y} (1-x)^2 + 100(y-x^2)^2
+\end{equation*}
+
+\begin{equation*} % ¿bien!
+\min_{x,y}{(1-x)^2 + 100(y-x^2)^2}
+\end{equation*}
+\end{verbatim}}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{4cm}
+{\scriptsize
+\begin{equation*} % bad!
+ min_{x,y} (1-x)^2 + 100(y-x^2)^2
+\end{equation*}
+\begin{equation*} % good!
+\min_{x,y}{(1-x)^2 ++ 100(y-x^2)^2}
+\end{equation*}}
+\end{minipage}}
+\end{center}
+{\small
+\item También puedes usar el comando\cmdbs{operatorname} para otros.}
+\begin{center}
+\cprotect\fbox{
+\begin{minipage}[l]{5.5cm}
+{\scriptsize
+\begin{verbatim}
+\begin{equation*}
+\beta_i =
+\frac{\operatorname{Cov}(R_i, R_m)}
+     {\operatorname{Var}(R_m)}
+\end{equation*}
+\end{verbatim}}
+\end{minipage}}
+\fbox{\begin{minipage}[r]{3cm}
+{\scriptsize
+\begin{equation*}
+\beta_i =
+\frac{\operatorname{Cov}(R_i, R_m)}
+     {\operatorname{Var}(R_m)}
+\end{equation*}}
+\end{minipage}}
+\end{center}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\insertsubsection{}: Ejemplos con \bftt{amsmath}}
+\begin{itemize}{\scriptsize
+\item Alinea varias ecuaciones en los signos igual
+\begin{align*}
+(x+1)^3 &= (x+1)(x+1)(x+1) \\
+        &= (x+1)(x^2 + 2x + 1) \\
+        &= x^3 + 3x^2 + 3x + 1
+\end{align*}
+con el entorno \bftt{align*} .
+\begin{center}
+\includegraphics[scale=.4]{align}
+\end{center}
+
+%\fbox{\begin{minipage}[c]{8cm}
+%{\scriptsize
+%\begin{verbatim}
+%\begin{align*}
+%(x+1)^3 &= (x+1)(x+1)(x+1) \\
+%             &= (x+1)(x^2 + 2x + 1) \\
+%             &= x^3 + 3x^2 + 3x + 1
+%\end{align*}
+%\end{verbatim}}
+%\end{minipage}}
+
+\item Un signo \keystrokebftt{\&} separa la columna de la izquierda (antes del signo 
+$=$) de la columna de la después (después del signo $=$).
+\item La barra doble invertida \keystrokebftt{\bs}\keystrokebftt{\bs} provoca un cambio de línea.
+}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Ejercicio de escritura 2}
+
+\begin{block}{Escribe en \LaTeX lo que sigue:}
+Sea $X_1, X_2, \ldots, X_n$ una sucesión de variables aleatories independientes e idénticamente distribuidas con $\operatorname{E}[X_i] = \mu$ i
+$\operatorname{Var}[X_i] = \sigma^2 < \infty$, y sea
+\begin{equation*}
+S_n = \frac{1}{n}\sum_{i}^{n} X_i
+\end{equation*}
+su media. Entonces, cuando $n$ tiende a infinito, las variables aleatories
+$\sqrt{n}(S_n - \mu)$ convergen a una distribución normal $N(0, \sigma^2)$.
+\end{block}
+\vskip 2ex
+\begin{center}
+\fbox{\href{\wlnewdoc{basics-exercise-2.tex}}{%
+Clica aquí para abrir este ejercicio en Overleaf}}
+\end{center}
+\begin{itemize}
+\item Indicación: el comando  para  $\infty$ es \cmdbs{infty}.
+\item {\scriptsize Una vez que lo hayas intentado,}
+\fbox{\href{\wlnewdoc{basics-exercise-2-solution.tex}}{%
+{\scriptsize clica aquí para ver la solución del autor}}}.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Clases de documentos y algunos paquetes más}
+Clases típicas de documentos:
+{\small
+\begin{itemize}
+  \item \textbf{article}: usado para escribir artículos para revistas especializadas. Se puede dividir en secciones y subsecciones. 
+  \item \textbf{report}: se usa para informes largos que consten de capítulos:  projectos de fin de grado, tesis doctorales o libres no muy extensos.
+  \item \textbf{book}: Como su propio nombre indica: libres y otros documentos  a doble cara de características similares a libros. Documentos que han de incluir cosas como capítulos, prólego, apendices  e incluso partes.
+  \item \textbf{beamer}: para hacer diapositivas para una una presentación.
+\end{itemize}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Clases de documentos y algunos paquetes más}
+Las clases {\tt book} y {\tt report} són muy similares. Sin embargo, tienen algunas diferencias:
+\begin{itemize}
+  \item Por ejemplo, la clase {\tt book} hace que los capítulos empiezen siempre en una página impar, de manera que si un capítulo anterior acaba en una de estas páginas, la  siguiente quedarà en blanco y el capítulo nuevo empezarà a continuación, en una página par.
+  \item Con  la clase {\tt report} esto no pasa: un capítulo nuevo empieza siempre en la página siguiente, sea impar o no. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Clases de documentos y algunos paquetes más.}
+
+\begin{itemize}
+  \item Todas las clases de la lista anterior admiten opciones adicionales.
+  \item Pueden ser varias opciones, y han de ir separadas por comas.
+  \item Las opciones más comunes son las siguientes:
+  \begin{itemize}
+    \item {\tt 10pt, 11pt, 12pt ...}: establece el tamaño de la letra en el documento. Por defecte es de {\tt 10pt}.
+    \item {\tt a4paper, letterpaper ...}: definen el tamaño del paper. Por defecto, el tamaño es  {\tt a4paper}. Además, se pueden especificar otros como {\tt a5paper, b5paper}, etc.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Clases de documentos y algunos paquetes más.}
+
+  \begin{itemize}
+    \item {\tt twocolumn}: para componer el documento a dos columnas.
+    \item {\tt landscape} : para componer el documento en forma apaisada.
+    \item {\tt twoside, oneside}: especifica si se ha de generar el documento a una o dos caras. Si no se especifica nada, los de las clases {\tt article} y {\tt report} son a una cara, y los de clase {\tt book} son a dos caras.
+    \item {\tt draft}: indica que se trata de un borrador, y aporta facilitades de manipulación de versiones no definitivas.
+  \end{itemize}
+  \begin{exampleblock}{Ejemplo de encabezamiento}\small 
+    {\tt $\backslash${documentclass[12pt,landscape,letterpaper]\{article\}}}
+  \end{exampleblock}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Fin de la primera parte}
+\begin{itemize}
+\item Enhorabuena! Ya has aprendido como \ldots
+\begin{itemize}
+\item Escribir un  texto en \LaTeX.
+\item Usar muchos comandos.
+\item Gestionar los errores cuando aparezcan.
+\item Escribir algunas expresiones matemáticas.
+\item Usar diferentes entornos.
+\item Cargar paquetes.
+\item Definir diversos tipos de documentos.
+\end{itemize}
+\item ¡Bien!
+\item En la segunda parte veremos como usar \LaTeX{} para escribir documentos estructurados con secciones, referencias cruzadas, figuras, tablas y bibliografías. ¡Nos vemos!
+\end{itemize}
+\end{frame}
+
+\end{document}
