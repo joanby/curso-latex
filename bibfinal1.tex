@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[nottoc]{tocbibind}
+\author{Llorenç}
+\date{Septembre 2020}
+\title {\Huge{Más sobre bibliografías}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Qué es una base de datos {\em BibTeX}}
+
+Una base de datos {\em BibTeX} contiene registros bibliográficos, que son usados, principalmente para las referencias de documentos escritos en \LaTeX{}. La extensión de este tipo de ficheros es {\em .bib}
+
+Los registros de las bases de datos {\em BibTeX} distinguen diferentes tipos de publicación, así, por ejemplo, la referencia \cite{Valverde2008} es la de un artículo publicado en una revista científica.
+
+Por su parte, la referencia \cite{Valverde2015} es de un libro, en tanto que la referencia \cite{MorenoNavarro2016} es de una tesis doctoral y \cite{BouchonMeunier1997} es de un capítulo de libro.
+
+Finalmente, \cite{Almirall2010} es una comunicación a un congreso y \cite{Valverde1984} es un informe. Hay todavía algunos tipos más de registros, pero los indicados son los más habituales
+
+Cada tipo de registro tiene sus campos específicos asociados, aunque la mayoría incluyen, evidentemente, un campo para el autor, uno para el título de la publicación y otro para el año.
+
+Los registros se identifican con una llave, que suele incluir algunas letras del apellido del primer autor, el año y, eventualmente, se recomienda que también incluya algunas letras del título, para poder distinguir publicaciones del mismo autor y año. La llave sirve para invocar la referencia en el documento, mediante comandos como {\em cite, citet citep}, entre otros.
+
+\section{Cómo crear una base de datos {\em BibTeX}}
+
+Actualmente, la gran mayoría de gestores documentales como {\em Mendeley} o {\em Zotero} incluyen la opción de exportar en formato {\em .bib} las referencias de los documentos que contienen. Lo mismo ocurre con las publicaciones en {\em Google Scholar}, en {\em IEEExplore}, o editoriales como {\em Springer}. 
+
+Lo más aconsejable es usar un programa específico, como {\em jabref} (que es gratuito y multiplataforma) para organizar el archivo {\em .bib} con todas las referencias de uso habitual.
+
+El programa {\em jabref} permite importar registros desde diversas fuentes e identificadores, que incluyen el {\em ISBN} y el {\em doi} (digital object identifier), entre otros. Obviamente, también permite introducir registros de forma manual, con la ventaja añadida que, de acuerdo con el tipo de registro, va señalando los campos que hay que rellenar.
+
+\bibliography{jabref.bib}
+\bibliographystyle{plain}
+
+
+\end{document}
